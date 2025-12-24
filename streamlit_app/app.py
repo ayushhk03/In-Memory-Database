@@ -3,6 +3,8 @@ import streamlit as st
 import shutil
 import os
 
+st.write("### APP VERSION: TMP-EXECUTION-1")
+
 REPO_BINARY = "/app/streamlit_app/in-memory-db"
 TMP_BINARY = "/tmp/in-memory-db"
 

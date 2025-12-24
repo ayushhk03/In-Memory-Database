@@ -41,11 +41,12 @@ DB>
 
 ```bash
 -- Create a table
-CREATE TABLE users;
+CREATE TABLE users (id, name, age)
+
 
 -- Insert some rows
-INSERT INTO users (1, 'Ayush');
-INSERT INTO users (2, 'John Doe');
+INSERT INTO users VALUES (1, 'Alice', 23)
+
 
 -- Select data
 SELECT * FROM users;
@@ -53,6 +54,11 @@ SELECT * FROM users;
 -- Exit
 EXIT;
 ```
+## Notes on INSERT syntax
+- String values must be quoted (e.g., "Alice")
+- The database uses a strict SQL-like grammar
+- Implicit type coercion is not supported
+
 ### Running Tests
 ```bash
 ./test_allocator

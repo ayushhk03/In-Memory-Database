@@ -1,4 +1,4 @@
-#include "/Users/ayush/CLionProjects/CPP_project/src/storage/Database.h"
+#include "storage/Database.h"
 #include <iostream>
 #include <cassert>
 

@@ -1,4 +1,4 @@
-#include "/Users/ayush/CLionProjects/CPP_project/src/parser/QueryParser.h"
+#include "parser/QueryParser.h"
 #include <iostream>
 
 int main() {

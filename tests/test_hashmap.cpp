@@ -1,4 +1,4 @@
-#include "/Users/ayush/CLionProjects/CPP_project/src/hashmap/LockFreeHashMap.h"
+#include "hashmap/LockFreeHashMap.h"
 #include <iostream>
 #include <cassert>
 

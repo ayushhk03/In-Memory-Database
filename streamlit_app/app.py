@@ -1,9 +1,10 @@
 import subprocess
 import streamlit as st
+import shutil
 import os
-import stat
 
-BINARY_PATH = "/app/streamlit_app/in-memory-db"
+REPO_BINARY = "/app/streamlit_app/in-memory-db"
+TMP_BINARY = "/tmp/in-memory-db"
 
 st.set_page_config(page_title="In-Memory DB", layout="wide")
 st.title("In-Memory Database (C++)")
@@ -16,12 +17,13 @@ query = st.text_area(
 
 if st.button("Execute"):
     try:
-        # 🔥 Force executable permission at runtime (Streamlit Cloud fix)
-        st.info("Preparing database engine…")
-        os.chmod(BINARY_PATH, stat.S_IRWXU)
+        # 🔥 Copy binary to executable filesystem
+        if not os.path.exists(TMP_BINARY):
+            shutil.copy(REPO_BINARY, TMP_BINARY)
+            os.chmod(TMP_BINARY, 0o755)
 
         result = subprocess.run(
-            [BINARY_PATH],
+            [TMP_BINARY],
             input=query,
             text=True,
             capture_output=True,

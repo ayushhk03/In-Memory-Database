@@ -1,4 +1,35 @@
-name: build.yml
+name: Build In-Memory DB (Linux)
+
 on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ cmake libsqlite3-dev
+
+      - name: Configure
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DENABLE_SQLITE_COMPARISON=ON
+
+      - name: Build
+        run: |
+          cd build
+          make -j$(nproc)
+
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure

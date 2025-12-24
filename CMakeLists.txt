@@ -54,9 +54,13 @@ target_link_libraries(test_database PRIVATE db_core)
 add_test(NAME DatabaseTests COMMAND test_database)
 
 # -----------------------------------------------------------------------------
-# Benchmarks (compare against SQLite)
+# Benchmarks (SQLite comparison – core to the project)
 # -----------------------------------------------------------------------------
-find_package(SQLite3 REQUIRED)
+option(ENABLE_SQLITE_COMPARISON "Enable SQLite performance comparison benchmarks" ON)
 
-add_executable(benchmark_vs_sqlite benchmarks/benchmark_vs_sqlite.cpp)
-target_link_libraries(benchmark_vs_sqlite PRIVATE db_core SQLite::SQLite3)
+if (ENABLE_SQLITE_COMPARISON)
+    find_package(SQLite3 REQUIRED)
+
+    add_executable(benchmark_vs_sqlite benchmarks/benchmark_vs_sqlite.cpp)
+    target_link_libraries(benchmark_vs_sqlite PRIVATE db_core SQLite::SQLite3)
+endif()

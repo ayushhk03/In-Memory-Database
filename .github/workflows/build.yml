@@ -16,20 +16,29 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ cmake libsqlite3-dev
+          sudo apt-get install -y g++ cmake
 
       - name: Configure
         run: |
           mkdir build
           cd build
-          cmake .. -DENABLE_SQLITE_COMPARISON=ON
+          cmake .. -DENABLE_SQLITE_COMPARISON=OFF
 
       - name: Build
         run: |
           cd build
           make -j$(nproc)
+          mkdir -p ../streamlit
+          cp in-memory-db ../streamlit/in-memory-db
+          chmod +x ../streamlit/in-memory-db
 
       - name: Run tests
         run: |
           cd build
           ctest --output-on-failure
+
+      - name: Upload Linux binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: in-memory-db-linux
+          path: streamlit/in-memory-db

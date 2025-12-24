@@ -5,7 +5,7 @@ st.set_page_config(page_title="In-Memory DB", layout="wide")
 st.title("In-Memory Database (C++)")
 
 query = st.text_area(
-    "Enter SQL-like commands",
+    "Enter SQL commands",
     height=200,
     placeholder="CREATE TABLE users (id, name)\nINSERT INTO users VALUES (1, Alice)\nSELECT * FROM users"
 )
@@ -13,7 +13,7 @@ query = st.text_area(
 if st.button("Execute"):
     try:
         result = subprocess.run(
-            ["./in-memory-db"],
+            ["/app/streamlit_app/in-memory-db"],
             input=query,
             text=True,
             capture_output=True,
